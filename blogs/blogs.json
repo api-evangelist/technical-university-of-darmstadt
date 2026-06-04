@@ -1,0 +1,14 @@
+{
+  "repo": "technical-university-of-darmstadt",
+  "feeds": [
+    {
+      "source": "https://www.tu-darmstadt.de/index.en.jsp",
+      "feed_url": "https://www.tu-darmstadt.de/index.en.jsp",
+      "title": "TU Darmstadt",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-03T00:00:00Z"
+}

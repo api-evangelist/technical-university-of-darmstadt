@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "tud": "https://www.tu-darmstadt.de/ns#",
+    "dspace": "https://tudatalib.ulb.tu-darmstadt.de/server/api#",
+    "oai": "http://www.openarchives.org/OAI/2.0/#",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "logo": "schema:logo",
+    "sameAs": "schema:sameAs",
+    "foundingDate": "schema:foundingDate",
+    "address": "schema:address",
+    "department": "schema:department",
+    "alumni": "schema:alumni",
+    "api": {
+      "@id": "tud:api",
+      "@container": "@set"
+    },
+    "baseURL": "schema:url",
+    "humanURL": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "repositoryName": "oai:repositoryName",
+    "protocolVersion": "oai:protocolVersion",
+    "adminEmail": "oai:adminEmail",
+    "dspaceName": "dspace:dspaceName",
+    "dspaceVersion": "dspace:dspaceVersion",
+    "community": "dspace:community",
+    "collection": "dspace:collection",
+    "item": "dspace:item",
+    "bitstream": "dspace:bitstream"
+  },
+  "@type": "schema:CollegeOrUniversity",
+  "@id": "https://www.tu-darmstadt.de/",
+  "name": "Technical University of Darmstadt",
+  "url": "https://www.tu-darmstadt.de/index.en.jsp",
+  "description": "Public research university in Darmstadt, Germany. Its public, machine-readable developer footprint is centered on scholarly infrastructure: TUdatalib (DSpace 8.1 research-data repository with REST and OAI-PMH), and the TUbiblio and tuprints repositories (EPrints with OAI-PMH).",
+  "sameAs": [
+    "https://github.com/TU-Darmstadt",
+    "https://www.linkedin.com/school/tu-darmstadt/",
+    "https://en.wikipedia.org/wiki/Technical_University_of_Darmstadt"
+  ],
+  "api": [
+    {
+      "@type": "schema:WebAPI",
+      "name": "TUdatalib DSpace REST API",
+      "humanURL": "https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/",
+      "baseURL": "https://tudatalib.ulb.tu-darmstadt.de/server/api",
+      "dspaceName": "TUdatalib System",
+      "dspaceVersion": "DSpace 8.1"
+    },
+    {
+      "@type": "schema:WebAPI",
+      "name": "TUdatalib OAI-PMH",
+      "humanURL": "https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/",
+      "baseURL": "https://tudatalib.ulb.tu-darmstadt.de/server/oai/request",
+      "repositoryName": "TUdatalib System",
+      "protocolVersion": "2.0",
+      "adminEmail": "tudatalib@ulb.tu-darmstadt.de"
+    },
+    {
+      "@type": "schema:WebAPI",
+      "name": "TUbiblio OAI-PMH (EPrints)",
+      "humanURL": "https://tubiblio.ulb.tu-darmstadt.de/",
+      "baseURL": "https://tubiblio.ulb.tu-darmstadt.de/cgi/oai2",
+      "protocolVersion": "2.0"
+    },
+    {
+      "@type": "schema:WebAPI",
+      "name": "tuprints OAI-PMH (EPrints)",
+      "humanURL": "https://tuprints.ulb.tu-darmstadt.de/",
+      "baseURL": "https://tuprints.ulb.tu-darmstadt.de/cgi/oai2",
+      "protocolVersion": "2.0"
+    }
+  ]
+}
