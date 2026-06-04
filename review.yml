@@ -1,0 +1,50 @@
+---
+name: Technical University of Darmstadt
+description: Technical University of Darmstadt public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/technical-university-of-darmstadt/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 3
+    summary: >-
+      TU Darmstadt has no central developer portal, but it operates real,
+      documented scholarly-infrastructure APIs through its university and state
+      library (ULB). Verified live during review: the TUdatalib research-data
+      repository runs DSpace 8.1 with a working REST API (/server/api returned
+      JSON identifying "TUdatalib System") and a valid OAI-PMH 2.0 interface
+      (/server/oai/request Identify returned protocolVersion 2.0). TUbiblio and
+      tuprints (EPrints) advertise OAI-PMH endpoints; tuprints root resolved
+      (200) while its OAI path returned 403 to a plain client, and the TUbiblio
+      host applied bot/TLS filtering so its OAI endpoint could not be directly
+      curl-verified. The official-named GitHub org TU-Darmstadt exists but has
+      no public repositories. No endpoints were fabricated; unverifiable items
+      are flagged as such.
+    endpoints:
+      - url: https://www.tu-darmstadt.de/index.en.jsp
+        status: 200
+        note: Official English homepage, live.
+      - url: https://tudatalib.ulb.tu-darmstadt.de/server/api
+        status: 200
+        note: DSpace 8.1 REST API root, JSON, dspaceName "TUdatalib System".
+      - url: https://tudatalib.ulb.tu-darmstadt.de/server/api/core/communities
+        status: 200
+        note: DSpace REST communities endpoint returned embedded JSON list.
+      - url: https://tudatalib.ulb.tu-darmstadt.de/server/oai/request?verb=Identify
+        status: 200
+        note: Valid OAI-PMH 2.0 Identify, repositoryName "TUdatalib System".
+      - url: https://tuprints.ulb.tu-darmstadt.de/
+        status: 200
+        note: tuprints open-access EPrints repository root, live.
+      - url: https://tuprints.ulb.tu-darmstadt.de/cgi/oai2?verb=Identify
+        status: 403
+        note: EPrints OAI path forbidden to plain client; likely needs harvester UA.
+      - url: https://tubiblio.ulb.tu-darmstadt.de/cgi/oai2?verb=Identify
+        status: 0
+        note: Host blocked plain client (connection failed); loads in browser only.
+      - url: https://www.hrz.tu-darmstadt.de/sso
+        status: 200
+        note: HRZ central SSO documentation page, live.
+      - url: https://github.com/TU-Darmstadt
+        status: 200
+        note: Official-named GitHub org exists but has no public repositories.

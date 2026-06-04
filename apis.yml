@@ -1,0 +1,107 @@
+---
+aid: technical-university-of-darmstadt
+name: Technical University of Darmstadt
+description: >-
+  The Technical University of Darmstadt (Technische Universitat Darmstadt, TU
+  Darmstadt) is a public research university in Darmstadt, Germany, ranked #241
+  in the QS World University Rankings 2025. Its public, machine-readable
+  developer footprint is centered on the university and state library (ULB)
+  scholarly infrastructure rather than a central developer portal. TUdatalib,
+  the institutional research-data repository, runs DSpace 8.1 and exposes a
+  live REST API and an OAI-PMH 2.0 metadata interface; the TUbiblio publication
+  bibliography and the tuprints open-access repository run on EPrints with
+  OAI-PMH harvesting. Authentication across university services is handled
+  through a central SSO system operated by the Hochschulrechenzentrum (HRZ).
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/technical-university-of-darmstadt/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research Data
+  - Open Access
+  - Library
+  - OAI-PMH
+  - DSpace
+  - Germany
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: technical-university-of-darmstadt:tudatalib-rest
+    name: TUdatalib DSpace REST API
+    description: >-
+      REST API of TUdatalib, the institutional research-data repository of TU
+      Darmstadt, running on DSpace 8.1. The API root reports dspaceName
+      "TUdatalib System" and exposes HAL-style endpoints for communities,
+      collections, and items (e.g. /server/api/core/communities). Verified live
+      returning HTTP 200 with JSON.
+    humanURL: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
+    baseURL: https://tudatalib.ulb.tu-darmstadt.de/server/api
+    tags: [ Research Data, DSpace, REST, Repository, Open Access ]
+    properties:
+      - type: Documentation
+        url: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
+  - aid: technical-university-of-darmstadt:tudatalib-oai
+    name: TUdatalib OAI-PMH
+    description: >-
+      OAI-PMH 2.0 metadata harvesting interface for TUdatalib (DSpace 8.1).
+      Verified live: Identify returns repositoryName "TUdatalib System",
+      protocolVersion 2.0, adminEmail tudatalib@ulb.tu-darmstadt.de.
+    humanURL: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
+    baseURL: https://tudatalib.ulb.tu-darmstadt.de/server/oai/request
+    tags: [ Research Data, OAI-PMH, Metadata, Harvesting, Repository ]
+    properties:
+      - type: Documentation
+        url: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
+  - aid: technical-university-of-darmstadt:tubiblio-oai
+    name: TUbiblio OAI-PMH (EPrints)
+    description: >-
+      TUbiblio is the publication bibliography of TU Darmstadt, built on EPrints
+      and registered with an OAI-PMH 2.0 interface for metadata harvesting. The
+      OAI base path is /cgi/oai2. The public site loads in browsers but applies
+      bot/TLS filtering, so the OAI endpoint was not directly curl-verifiable
+      during review.
+    humanURL: https://tubiblio.ulb.tu-darmstadt.de/
+    baseURL: https://tubiblio.ulb.tu-darmstadt.de/cgi/oai2
+    tags: [ Publications, OAI-PMH, EPrints, Metadata, Repository ]
+    properties:
+      - type: Documentation
+        url: https://tubiblio.ulb.tu-darmstadt.de/
+  - aid: technical-university-of-darmstadt:tuprints-oai
+    name: tuprints OAI-PMH (EPrints)
+    description: >-
+      tuprints is the open-access publication repository of TU Darmstadt, built
+      on EPrints with an OAI-PMH 2.0 interface (base path /cgi/oai2). The
+      repository site returns HTTP 200; the OAI endpoint returned HTTP 403 to a
+      plain client during review and likely requires a standard harvester
+      client.
+    humanURL: https://tuprints.ulb.tu-darmstadt.de/
+    baseURL: https://tuprints.ulb.tu-darmstadt.de/cgi/oai2
+    tags: [ Open Access, OAI-PMH, EPrints, Metadata, Repository ]
+    properties:
+      - type: Documentation
+        url: https://tuprints.ulb.tu-darmstadt.de/
+common:
+  - type: Website
+    url: https://www.tu-darmstadt.de/index.en.jsp
+  - type: GitHub
+    url: https://github.com/TU-Darmstadt
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/tu-darmstadt/
+  - type: Authentication
+    url: https://www.hrz.tu-darmstadt.de/sso
+  - type: Plans
+    url: plans/technical-university-of-darmstadt-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/technical-university-of-darmstadt-rate-limits.yml
+  - type: FinOps
+    url: finops/technical-university-of-darmstadt-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
