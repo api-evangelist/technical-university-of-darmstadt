@@ -13,6 +13,17 @@ description: >-
   OAI-PMH harvesting. Authentication across university services is handled
   through a central SSO system operated by the Hochschulrechenzentrum (HRZ).
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: unknown
