@@ -1,17 +1,27 @@
 ---
 aid: technical-university-of-darmstadt
 name: Technical University of Darmstadt
+x-type: university
+x-category: Technical University
 description: >-
-  The Technical University of Darmstadt (Technische Universitat Darmstadt, TU
-  Darmstadt) is a public research university in Darmstadt, Germany, ranked #241
-  in the QS World University Rankings 2025. Its public, machine-readable
-  developer footprint is centered on the university and state library (ULB)
-  scholarly infrastructure rather than a central developer portal. TUdatalib,
-  the institutional research-data repository, runs DSpace 8.1 and exposes a
-  live REST API and an OAI-PMH 2.0 metadata interface; the TUbiblio publication
-  bibliography and the tuprints open-access repository run on EPrints with
-  OAI-PMH harvesting. Authentication across university services is handled
-  through a central SSO system operated by the Hochschulrechenzentrum (HRZ).
+  The Technical University of Darmstadt (Technische Universitaet Darmstadt, TU
+  Darmstadt) is a public technical research university in Darmstadt, Hesse,
+  Germany, founded in 1877 and registered as ROR 05n911h24. It operates no
+  central developer portal, publishes no OpenAPI description of its own, and
+  its GitHub organization (TU-Darmstadt) is live but holds zero public
+  repositories. What it does operate, and what makes this profile non-empty,
+  is scholarly and identity infrastructure on its own domain: TUdatalib, the
+  institutional research-data repository, runs DSpace 9.3 and exposes both a
+  live HAL/JSON REST API and an OAI-PMH 2.0 interface; a DBRepo deployment at
+  dbrepo.ulb.tu-darmstadt.de serves a live JSON API for research databases;
+  and the Hochschulrechenzentrum (HRZ) runs the university's own Shibboleth
+  SAML 2.0 identity provider, whose metadata is publicly retrievable and
+  published into the German DFN-AAI federation and eduGAIN. TUbiblio and
+  tuprints run on EPrints with OAI-PMH endpoints that are WAF-protected. The
+  ULB is a DataCite consortium member (provider HLQC) registering DOIs for six
+  repositories. TUjournals is real, machine-readable and busy, but it is a
+  tenancy on Janeway shared hosting, not TU Darmstadt engineering. Every
+  surface below is labelled with who actually operates it.
 type: Index
 deliveryModel:
   model: saas
@@ -44,73 +54,257 @@ tags:
   - Education
   - Higher Education
   - University
+  - Technical University
+  - Germany
   - Research Data
   - Open Access
+  - Scholarly Publishing
   - Library
   - OAI-PMH
   - DSpace
-  - Germany
+  - Identity Federation
+  - Shibboleth
+  - Research Computing
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 specificationVersion: '0.23'
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    TU Darmstadt operates no public developer portal and publishes no OpenAPI,
+    llms.txt, .well-known/apis.json or security.txt — all four were probed and
+    all four 404. It is nonetheless not a thin profile: three institution-operated,
+    machine-readable surfaces were verified live on tu-darmstadt.de hosts — the
+    TUdatalib DSpace 9.3 REST API, its OAI-PMH 2.0 interface, and a DBRepo JSON
+    API — plus the HRZ's own Shibboleth SAML 2.0 identity provider metadata, which
+    is the strongest institution-operated surface here and the one the June 2026
+    profile missed entirely. One caveat about US, not about them: the entire
+    ulb.tu-darmstadt.de repository host family returns HTTP 403 to this network's
+    egress IP regardless of User-Agent. A second, independent fetch path retrieved
+    the TUdatalib REST root and OAI-PMH Identify successfully, and the tuprints
+    site root, which is how those are graded live. The tuprints and TUbiblio
+    /cgi/oai2 EPrints endpoints returned 403 to both fetch paths and are recorded
+    honestly as unverified rather than dropped or credited.
+  evidence:
+    - url: https://idp.hrz.tu-darmstadt.de/idp/shibboleth
+      status: 200
+    - url: https://mdq.aai.dfn.de/entities/https%3A%2F%2Fidp.hrz.tu-darmstadt.de%2Fidp%2Fshibboleth
+      status: 200
+    - url: https://tudatalib.ulb.tu-darmstadt.de/server/api
+      status: 200
+    - url: https://tudatalib.ulb.tu-darmstadt.de/server/oai/request?verb=Identify
+      status: 200
+    - url: https://dbrepo.ulb.tu-darmstadt.de/api/v1/database
+      status: 200
+    - url: https://tujournals.ulb.tu-darmstadt.de/api/journals/
+      status: 200
+    - url: https://api.datacite.org/providers/hlqc
+      status: 200
+    - url: https://api.ror.org/organizations/05n911h24
+      status: 200
+    - url: https://api.github.com/orgs/TU-Darmstadt/repos
+      status: 200
+    - url: https://tuprints.ulb.tu-darmstadt.de/cgi/oai2?verb=Identify
+      status: 403
+    - url: https://tubiblio.ulb.tu-darmstadt.de/cgi/oai2?verb=Identify
+      status: 403
+    - url: https://www.tu-darmstadt.de/llms.txt
+      status: 404
+    - url: https://www.tu-darmstadt.de/.well-known/apis.json
+      status: 404
 apis:
   - aid: technical-university-of-darmstadt:tudatalib-rest
     name: TUdatalib DSpace REST API
+    x-operator: institution
     description: >-
       REST API of TUdatalib, the institutional research-data repository of TU
-      Darmstadt, running on DSpace 8.1. The API root reports dspaceName
-      "TUdatalib System" and exposes HAL-style endpoints for communities,
-      collections, and items (e.g. /server/api/core/communities). Verified live
-      returning HTTP 200 with JSON.
-    humanURL: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
+      Darmstadt. Verified live 2026-09-01: the API root returns HAL/JSON with
+      dspaceName "TUdatalib System", dspaceVersion "DSpace 9.3" (the June 2026
+      profile recorded 8.1 — the deployment has been upgraded), dspaceServer
+      https://tudatalib.ulb.tu-darmstadt.de/server, and roughly 106 hypermedia
+      _links covering communities, collections, items, bitstreams, discovery,
+      authn and versioning. Hosted on the institution's own registrable domain.
+      The contract is DSpace's, not TU Darmstadt's, so no OpenAPI is saved here;
+      the deployment is the institutional fact.
+    humanURL: https://www.ulb.tu-darmstadt.de/index.en.jsp
     baseURL: https://tudatalib.ulb.tu-darmstadt.de/server/api
     tags: [ Research Data, DSpace, REST, Repository, Open Access ]
     properties:
-      - type: Documentation
-        url: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
+      - type: Website
+        url: https://tudatalib.ulb.tu-darmstadt.de/
   - aid: technical-university-of-darmstadt:tudatalib-oai
     name: TUdatalib OAI-PMH
+    x-operator: institution
     description: >-
-      OAI-PMH 2.0 metadata harvesting interface for TUdatalib (DSpace 8.1).
-      Verified live: Identify returns repositoryName "TUdatalib System",
-      protocolVersion 2.0, adminEmail tudatalib@ulb.tu-darmstadt.de.
-    humanURL: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
+      OAI-PMH 2.0 metadata harvesting interface for TUdatalib. Verified live
+      2026-09-01: Identify returns repositoryName "TUdatalib System",
+      protocolVersion 2.0, adminEmail tudatalib@ulb.tu-darmstadt.de. The re3data
+      registry (r3d100013029, doi:10.17616/R31NJMJP) independently declares this
+      endpoint plus a second OpenAIRE-profile set at /server/oai/openairedata,
+      and a REST discovery endpoint at /server/api/discover/search. This is one of
+      the education regime's named domain standards and it is genuinely the
+      institution's, not a vendor's.
+    humanURL: https://www.re3data.org/repository/r3d100013029
     baseURL: https://tudatalib.ulb.tu-darmstadt.de/server/oai/request
     tags: [ Research Data, OAI-PMH, Metadata, Harvesting, Repository ]
     properties:
-      - type: Documentation
-        url: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
-  - aid: technical-university-of-darmstadt:tubiblio-oai
-    name: TUbiblio OAI-PMH (EPrints)
+      - type: Website
+        url: https://tudatalib.ulb.tu-darmstadt.de/
+  - aid: technical-university-of-darmstadt:shibboleth-idp
+    name: TU Darmstadt Shibboleth Identity Provider (SAML 2.0 metadata)
+    x-operator: institution
     description: >-
-      TUbiblio is the publication bibliography of TU Darmstadt, built on EPrints
-      and registered with an OAI-PMH 2.0 interface for metadata harvesting. The
-      OAI base path is /cgi/oai2. The public site loads in browsers but applies
-      bot/TLS filtering, so the OAI endpoint was not directly curl-verifiable
-      during review.
-    humanURL: https://tubiblio.ulb.tu-darmstadt.de/
-    baseURL: https://tubiblio.ulb.tu-darmstadt.de/cgi/oai2
-    tags: [ Publications, OAI-PMH, EPrints, Metadata, Repository ]
+      The university's own SAML 2.0 identity provider, operated by the
+      Hochschulrechenzentrum (HRZ). Verified live 2026-09-01 (HTTP 200,
+      15,371 bytes of XML): entityID https://idp.hrz.tu-darmstadt.de/idp/shibboleth,
+      shibmd:Scope tu-darmstadt.de, an IDPSSODescriptor advertising SAML2
+      HTTP-POST, POST-SimpleSign, HTTP-Redirect and SOAP/ECP bindings at
+      login.tu-darmstadt.de, signing certificates, mdui:DisplayName in German and
+      English, and technical/support contacts at hrz.tu-darmstadt.de. The same
+      document is served from https://login.tu-darmstadt.de/idp/shibboleth. This
+      is browser-mediated web SSO, not an API authorization server — there is no
+      OAuth or OIDC token endpoint — but it is machine-readable metadata the
+      institution itself authors and publishes, and it is the single strongest
+      institution-operated surface in this profile.
+    humanURL: https://www.hrz.tu-darmstadt.de/sso
+    baseURL: https://idp.hrz.tu-darmstadt.de/idp/shibboleth
+    tags: [ Identity Federation, Shibboleth, SAML, SSO, Metadata ]
     properties:
       - type: Documentation
-        url: https://tubiblio.ulb.tu-darmstadt.de/
+        url: https://www.hrz.tu-darmstadt.de/sso
+  - aid: technical-university-of-darmstadt:dfn-aai
+    name: DFN-AAI federation membership (eduGAIN)
+    x-operator: federation
+    description: >-
+      TU Darmstadt's identity provider is published in DFN-AAI, the German
+      research-and-education identity federation run by DFN, and is reachable
+      through eduGAIN by extension. Verified live 2026-09-01: the DFN-AAI MDQ
+      service returns the signed EntityDescriptor for
+      https://idp.hrz.tu-darmstadt.de/idp/shibboleth (HTTP 200, 22,505 bytes).
+      A federation is shared by definition; the IdP behind this entry is TU
+      Darmstadt's own, which is why this is recorded as a membership rather than
+      discarded as a shared host.
+    humanURL: https://doku.tid.dfn.de/de:aai:start
+    baseURL: https://mdq.aai.dfn.de/entities/
+    tags: [ Identity Federation, eduGAIN, DFN, SAML, Metadata ]
+    properties:
+      - type: Documentation
+        url: https://doku.tid.dfn.de/de:aai:start
+  - aid: technical-university-of-darmstadt:dbrepo
+    name: DBRepo API (research database repository)
+    x-operator: institution
+    description: >-
+      A DBRepo deployment run by the Universitaets- und Landesbibliothek for
+      publishing and querying research databases. Hosted on the institution's own
+      infrastructure — dbrepo.ulb.tu-darmstadt.de is a CNAME to
+      fidbau.ulb.tu-darmstadt.de at 130.83.245.233, inside TU Darmstadt's own
+      address space, not a vendor's. Verified live 2026-09-01: GET /api/v1/database
+      returns 200 with a JSON array of database records, and GET /api/v1/license
+      returns 200 with a licence vocabulary; the backend answers with
+      application/problem+json on unknown paths. The web tier is a Nuxt SPA. DBRepo
+      the software is a third-party product, so its generic OpenAPI is deliberately
+      not saved under this institution — the deployment is what belongs here.
+      Registered with DataCite as client hlqc.covcod.
+    humanURL: https://dbrepo.ulb.tu-darmstadt.de/
+    baseURL: https://dbrepo.ulb.tu-darmstadt.de/api/v1
+    tags: [ Research Data, Databases, REST, Repository, DBRepo ]
+    properties:
+      - type: Website
+        url: https://dbrepo.ulb.tu-darmstadt.de/
+  - aid: technical-university-of-darmstadt:tujournals-janeway
+    name: TUjournals REST API (Janeway tenancy)
+    x-operator: tenant
+    description: >-
+      TUjournals is TU Darmstadt's open-access journal platform, publisher of
+      record "Universitaets- und Landesbibliothek Darmstadt". It runs a live,
+      fully anonymous JSON REST API — verified 2026-09-01, /api/ returns a
+      discoverable endpoint index, /api/journals/ returns 6 journals (jcls, npl,
+      kordaf, inggrid, zif, fortext) with ISSNs, /api/articles/ returns 2,181
+      articles and /api/issues/ 136 issues. Operator is a TENANT relationship, not
+      institution engineering: tujournals.ulb.tu-darmstadt.de is a CNAME to
+      darmstadt.janewaysharedhosting.com (46.101.241.129), a hosted Janeway
+      instance outside the university's network. The hostname is the institution's
+      and the content is the institution's; the platform and the contract are
+      Janeway's, so no spec is saved here. Registered with DataCite as client
+      hlqc.eesqtr.
+    humanURL: https://tujournals.ulb.tu-darmstadt.de/
+    baseURL: https://tujournals.ulb.tu-darmstadt.de/api
+    tags: [ Scholarly Publishing, Open Access, Journals, REST, Janeway ]
+    properties:
+      - type: Website
+        url: https://tujournals.ulb.tu-darmstadt.de/
+  - aid: technical-university-of-darmstadt:datacite-membership
+    name: DataCite membership (provider HLQC)
+    x-operator: registry
+    description: >-
+      TU Darmstadt registers DOIs through DataCite. Verified live 2026-09-01 via
+      api.datacite.org/providers/hlqc: provider HLQC, "Universitaets- und
+      Landesbibliothek Darmstadt", organizationType academicInstitution, memberType
+      consortium_organization, country DE, website https://www.ulb.tu-darmstadt.de,
+      and rorId https://ror.org/05n911h24 — TU Darmstadt's own ROR record, which is
+      what ties this membership to the institution rather than to a lookalike.
+      Six repository clients sit under it: TUdatalib (hlqc.znxeli), TUprints
+      (hlqc.jslnah), TUjournals (hlqc.eesqtr), DBRepo (hlqc.covcod),
+      NFDI4Ing-Ingest (hlqc.jckkgr) and TUdigit (tib.ulbd). DataCite's own contract
+      is not saved here; the membership is the fact about TU Darmstadt.
+    humanURL: https://www.ulb.tu-darmstadt.de/index.en.jsp
+    baseURL: https://api.datacite.org/providers/hlqc
+    tags: [ DOI, DataCite, Persistent Identifiers, Registry, Research Data ]
+    properties:
+      - type: Documentation
+        url: https://support.datacite.org/docs/api
+  - aid: technical-university-of-darmstadt:ror
+    name: ROR registration
+    x-operator: registry
+    description: >-
+      TU Darmstadt is registered in the Research Organization Registry as
+      https://ror.org/05n911h24, established 1877, domain tu-darmstadt.de, with
+      GRID grid.6546.1 and Crossref Funder IDs 501100005714 / 501100003072. Verified
+      live 2026-09-01 against api.ror.org. Recorded as a registry membership; the
+      ROR API's own contract belongs to ROR, not to the institution.
+    humanURL: https://ror.org/05n911h24
+    baseURL: https://api.ror.org/organizations/05n911h24
+    tags: [ Registry, Persistent Identifiers, ROR, Research Data ]
+    properties:
+      - type: Documentation
+        url: https://ror.readme.io/
   - aid: technical-university-of-darmstadt:tuprints-oai
     name: tuprints OAI-PMH (EPrints)
+    x-operator: institution
     description: >-
-      tuprints is the open-access publication repository of TU Darmstadt, built
-      on EPrints with an OAI-PMH 2.0 interface (base path /cgi/oai2). The
-      repository site returns HTTP 200; the OAI endpoint returned HTTP 403 to a
-      plain client during review and likely requires a standard harvester
-      client.
+      tuprints is the open-access publication repository of TU Darmstadt, on the
+      institution's own host and registered with DataCite as client hlqc.jslnah.
+      It runs EPrints, whose OAI-PMH 2.0 base path is /cgi/oai2. Status as of
+      2026-09-01: the repository site root is live and serves "TUprints ::
+      Startseite", but the /cgi/oai2 endpoint returned HTTP 403 to two independent
+      fetch paths, so the OAI interface itself is recorded as UNVERIFIED rather
+      than claimed live. The 403 is a WAF/bot filter in front of the endpoint, not
+      an absence — it is stated here rather than papered over.
     humanURL: https://tuprints.ulb.tu-darmstadt.de/
     baseURL: https://tuprints.ulb.tu-darmstadt.de/cgi/oai2
     tags: [ Open Access, OAI-PMH, EPrints, Metadata, Repository ]
     properties:
-      - type: Documentation
+      - type: Website
         url: https://tuprints.ulb.tu-darmstadt.de/
+  - aid: technical-university-of-darmstadt:tubiblio-oai
+    name: TUbiblio OAI-PMH (EPrints)
+    x-operator: institution
+    description: >-
+      TUbiblio is the publication bibliography of TU Darmstadt, on the institution's
+      own host (tubiblio18.ulb.tu-darmstadt.de, 130.83.152.163), running EPrints with
+      an OAI-PMH 2.0 base path of /cgi/oai2. Status as of 2026-09-01: both fetch
+      paths were answered with HTTP 403 — one a plain Apache Forbidden, the other a
+      branded "Access Denied" bot-challenge page — so the endpoint is recorded as
+      UNVERIFIED. Bot-blocked is a finding, not a gap; the entry is kept and marked
+      rather than deleted or credited.
+    humanURL: https://tubiblio.ulb.tu-darmstadt.de/
+    baseURL: https://tubiblio.ulb.tu-darmstadt.de/cgi/oai2
+    tags: [ Publications, OAI-PMH, EPrints, Metadata, Repository ]
+    properties:
+      - type: Website
+        url: https://tubiblio.ulb.tu-darmstadt.de/
 common:
-  - type: DomainSecurity
-    url: security/technical-university-of-darmstadt-domain-security.yml
   - type: Website
     url: https://www.tu-darmstadt.de/index.en.jsp
   - type: GitHub
@@ -118,7 +312,29 @@ common:
   - type: LinkedIn
     url: https://www.linkedin.com/school/tu-darmstadt/
   - type: Authentication
-    url: https://www.hrz.tu-darmstadt.de/sso
+    url: authentication/technical-university-of-darmstadt-authentication.yml
+  - type: IdentityFederation
+    url: https://idp.hrz.tu-darmstadt.de/idp/shibboleth
+  - type: ResearchRepository
+    url: https://tudatalib.ulb.tu-darmstadt.de/
+  - type: ResearchComputing
+    url: https://www.hrz.tu-darmstadt.de/hlr/index.en.jsp
+  - type: AIPolicy
+    url: https://www.hda.tu-darmstadt.de/hochschuldidaktik/infoseiten_hd/handreichung_ki_hd/handreichung_ki_verteilerseite.de.jsp
+  - type: AITooling
+    url: https://www.e-learning.tu-darmstadt.de/online_lehre/ki_in_der_lehre/index.de.jsp
+  - type: TermsOfService
+    url: https://www.tu-darmstadt.de/impressum/index.en.jsp
+  - type: PrivacyPolicy
+    url: https://www.tu-darmstadt.de/datenschutzerklaerung
+  - type: Support
+    url: https://www.tu-darmstadt.de/kontakt_1/index.en.jsp
+  - type: Blog
+    url: https://www.tu-darmstadt.de/universitaet/aktuelles_meldungen/index.en.jsp
+  - type: Conformance
+    url: conformance/technical-university-of-darmstadt-conformance.yml
+  - type: DomainSecurity
+    url: security/technical-university-of-darmstadt-domain-security.yml
   - type: Plans
     url: plans/technical-university-of-darmstadt-plans-pricing.yml
   - type: RateLimits
