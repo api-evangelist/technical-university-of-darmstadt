@@ -46,7 +46,7 @@ accessModel:
   - plans
   generated: '2026-07-22'
   method: derived
-position: Consumer
+position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/technical-university-of-darmstadt.png
 url: https://raw.githubusercontent.com/api-evangelist/technical-university-of-darmstadt/refs/heads/main/apis.yml
