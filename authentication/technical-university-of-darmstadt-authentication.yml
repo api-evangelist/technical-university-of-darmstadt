@@ -1,0 +1,74 @@
+---
+# How authentication works across TU Darmstadt's programmable surfaces.
+# Derived from the institution's own live SAML metadata and from live probes of each
+# surface; nothing here is inferred from documentation alone.
+slug: technical-university-of-darmstadt
+generated: '2026-09-01'
+method: probed
+source: >-
+  https://idp.hrz.tu-darmstadt.de/idp/shibboleth (fetched 2026-09-01, HTTP 200,
+  15,371 bytes of SAML 2.0 metadata) plus unauthenticated probes of each listed surface.
+primary:
+  type: saml2-shibboleth
+  operator: institution
+  entity_id: https://idp.hrz.tu-darmstadt.de/idp/shibboleth
+  metadata_url: https://idp.hrz.tu-darmstadt.de/idp/shibboleth
+  scope: tu-darmstadt.de
+  federation: DFN-AAI (Deutsches Forschungsnetz), reachable via eduGAIN
+  federation_mdq: https://mdq.aai.dfn.de/entities/
+  operated_by: Hochschulrechenzentrum (HRZ), TU Darmstadt
+  contacts:
+    technical: idmadmin@hrz.tu-darmstadt.de
+    support: service@hrz.tu-darmstadt.de
+  endpoints:
+    - binding: urn:mace:shibboleth:1.0:profiles:AuthnRequest
+      location: https://login.tu-darmstadt.de/idp/profile/Shibboleth/SSO
+    - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+      location: https://login.tu-darmstadt.de/idp/profile/SAML2/POST/SSO
+    - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign
+      location: https://login.tu-darmstadt.de/idp/profile/SAML2/POST-SimpleSign/SSO
+    - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+      location: https://login.tu-darmstadt.de/idp/profile/SAML2/Redirect/SSO
+    - binding: urn:oasis:names:tc:SAML:2.0:bindings:SOAP
+      location: https://login.tu-darmstadt.de/idp/profile/SAML2/SOAP/ECP
+      note: ECP profile — the one binding here usable by a non-browser client.
+  notes: >-
+    This is browser-mediated web SSO for humans. It is not an API authorization
+    server: there is no OAuth 2.0 or OpenID Connect token endpoint published on the
+    institution's public surface, and no RFC 9728 protected-resource metadata was
+    found. An agent cannot obtain a bearer token here.
+surfaces:
+  - surface: TUdatalib DSpace REST API
+    base_url: https://tudatalib.ulb.tu-darmstadt.de/server/api
+    anonymous_read: true
+    scheme: >-
+      Anonymous GET works for the API root and public discovery. Write and restricted
+      reads use DSpace's own /server/api/authn endpoints, which chain to the
+      Shibboleth IdP above.
+    method: probed
+  - surface: TUdatalib OAI-PMH
+    base_url: https://tudatalib.ulb.tu-darmstadt.de/server/oai/request
+    anonymous_read: true
+    scheme: None. OAI-PMH is unauthenticated by protocol.
+    method: probed
+  - surface: DBRepo API v1
+    base_url: https://dbrepo.ulb.tu-darmstadt.de/api/v1
+    anonymous_read: true
+    scheme: >-
+      Public database listings and the license vocabulary return 200 anonymously.
+      DBRepo's write and private paths use a Keycloak-issued bearer token; no
+      registration path was found on the public surface.
+    method: probed
+  - surface: TUjournals (Janeway) REST API
+    base_url: https://tujournals.ulb.tu-darmstadt.de/api
+    anonymous_read: true
+    scheme: >-
+      Fully anonymous read across /api/journals/, /api/articles/ and /api/issues/.
+      Note the operator is a vendor (Janeway shared hosting), not the institution.
+    method: probed
+not_found:
+  - oauth2
+  - openid-connect
+  - api-keys
+  - rfc9728-protected-resource-metadata
+  - developer-registration-portal

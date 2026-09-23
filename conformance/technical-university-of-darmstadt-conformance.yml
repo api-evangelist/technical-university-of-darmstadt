@@ -1,0 +1,89 @@
+---
+# Domain-standard conformance for Technical University of Darmstadt.
+# Education regime (Kin Score 0.12.0). REWARD-ONLY: every entry below points at a
+# location that was actually fetched and read during this run. Standards in the
+# regime with no evidence are listed under not_evidenced and are NOT claimed.
+slug: technical-university-of-darmstadt
+regime: education
+generated: '2026-09-01'
+method: probed
+source: >-
+  Live HTTP probes run 2026-09-01 against TU Darmstadt hosts, the DFN-AAI metadata
+  query service, the DataCite REST API and the re3data registry API.
+conformance:
+  - standard: oai-pmh
+    version: '2.0'
+    status: verified
+    operator: institution
+    evidence:
+      location: https://tudatalib.ulb.tu-darmstadt.de/server/oai/request?verb=Identify
+      status: 200
+      detail: >-
+        OAI-PMH Identify response returns repositoryName "TUdatalib System",
+        protocolVersion 2.0, adminEmail tudatalib@ulb.tu-darmstadt.de. Served from
+        the institution's own registrable domain (tu-darmstadt.de).
+      corroboration: >-
+        re3data record r3d100013029 (doi:10.17616/R31NJMJP) independently declares
+        two OAI-PMH endpoints for TUdatalib, /server/oai/request and
+        /server/oai/openairedata, plus a REST endpoint at /server/api/discover/search.
+    method: probed
+  - standard: saml
+    version: '2.0'
+    status: verified
+    operator: institution
+    evidence:
+      location: https://idp.hrz.tu-darmstadt.de/idp/shibboleth
+      status: 200
+      detail: >-
+        SAML 2.0 metadata EntityDescriptor, entityID
+        https://idp.hrz.tu-darmstadt.de/idp/shibboleth, with an IDPSSODescriptor
+        advertising SAML2 HTTP-POST, HTTP-POST-SimpleSign, HTTP-Redirect and SOAP/ECP
+        SingleSignOnService bindings at login.tu-darmstadt.de, signing certificates,
+        and Organization/OrganizationDisplayName "Technische Universitaet Darmstadt".
+    method: probed
+  - standard: shibboleth
+    status: verified
+    operator: institution
+    evidence:
+      location: https://idp.hrz.tu-darmstadt.de/idp/shibboleth
+      status: 200
+      detail: >-
+        The same document is a Shibboleth IdP specifically, not a generic SAML IdP:
+        protocolSupportEnumeration includes urn:mace:shibboleth:1.0, a
+        urn:mace:shibboleth:1.0:profiles:AuthnRequest SingleSignOnService is present,
+        and the Extensions carry shibmd:Scope "tu-darmstadt.de".
+      corroboration: >-
+        The entity is published in the German national federation DFN-AAI and is
+        retrievable from its MDQ service, which places it in eduGAIN by extension.
+    method: probed
+  - standard: datacite
+    status: verified
+    operator: registry
+    evidence:
+      location: https://api.datacite.org/providers/hlqc
+      status: 200
+      detail: >-
+        DataCite provider HLQC, "Universitaets- und Landesbibliothek Darmstadt",
+        organizationType academicInstitution, memberType consortium_organization,
+        country DE, rorId https://ror.org/05n911h24 which is TU Darmstadt's own ROR
+        record. Six repository clients are registered under it: TUdatalib, TUprints,
+        TUjournals, TUdigit, DBRepo and NFDI4Ing-Ingest.
+      corroboration: >-
+        re3data r3d100013029 lists DOI as a pidSystem for TUdatalib and DataCite
+        Metadata Schema as a metadataStandardName.
+    method: probed
+not_evidenced:
+  - scim
+  - lti
+  - oneroster
+  - ed-fi
+  - caliper
+  - qti
+  - orcid
+  - crossref
+notes: >-
+  crossref was actively checked and returned zero: api.crossref.org/members?query=darmstadt
+  returns total-results 0, so TU Darmstadt is not a Crossref member in its own right and
+  no crossref conformance is claimed. orcid was not evidenced by any fetched artifact and
+  is therefore not claimed either. lti/caliper/oneroster/ed-fi/qti/scim would live inside
+  the Moodle and TUCaN estates, both of which are authenticated and were not reachable.
