@@ -1,4 +1,4 @@
-# Technical University of Darmstadt (technical-university-of-darmstadt)
+# Technical University of Darmstadt
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,51 +64,121 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-The Technical University of Darmstadt (Technische Universitat Darmstadt, TU Darmstadt) is a public research university in Darmstadt, Germany, ranked #241 in the QS World University Rankings 2025. This repository catalogs its public, machine-readable developer/API footprint as an [APIs.json](https://apisjson.org) profile. TU Darmstadt has no single central developer portal; its documented APIs are concentrated in the university and state library (ULB) scholarly-infrastructure stack — the TUdatalib research-data repository (DSpace 8.1) and the TUbiblio and tuprints EPrints repositories.
+The Technical University of Darmstadt (Technische Universitaet Darmstadt, TU Darmstadt) is a public technical research university in Darmstadt, Hesse, Germany, founded in 1877 and registered as ROR 05n911h24. It operates no central developer portal, publishes no OpenAPI description of its own, and its GitHub organization (TU-Darmstadt) is live but holds zero public repositories. What it does operate, and what makes this profile non-empty, is scholarly and identity infrastructure on its own domain: TUdatalib, the institutional research-data repository, runs DSpace 9.3 and exposes both a live HAL/JSON REST API and an OAI-PMH 2.0 interface; a DBRepo deployment at dbrepo.ulb.tu-darmstadt.de serves a live JSON API for research databases; and the Hochschulrechenzentrum (HRZ) runs the university's own Shibboleth SAML 2.0 identity provider, whose metadata is publicly retrievable and published into the German DFN-AAI federation and eduGAIN. TUbiblio and tuprints run on EPrints with OAI-PMH endpoints that are WAF-protected. The ULB is a DataCite consortium member (provider HLQC) registering DOIs for six repositories. TUjournals is real, machine-readable and busy, but it is a tenancy on Janeway shared hosting, not TU Darmstadt engineering. Every surface below is labelled with who actually operates it.
 
-APIs.json: https://raw.githubusercontent.com/api-evangelist/technical-university-of-darmstadt/refs/heads/main/apis.yml
+**Areas:** Education · Higher Education · University · Technical University · Germany · Research Data · Open Access · Scholarly Publishing · Library · OAI-PMH · DSpace · Identity Federation
 
-Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=technical-university-of-darmstadt-api-evangelist&utm_content=repo
+## Technical University of Darmstadt on APIs.io
 
-## Type
+Everything profiled for Technical University of Darmstadt is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/technical-university-of-darmstadt/](https://apis.io/providers/technical-university-of-darmstadt/)** — or go straight to one of the APIs or properties below.
 
-- Index
-- Consumer
-- 3rd-Party
+### APIs (10)
 
-## Tags
+- [TUdatalib DSpace REST API](https://apis.io/apis/technical-university-of-darmstadt/tudatalib-rest/) — REST API of TUdatalib, the institutional research-data repository of TU Darmstadt. Verified live 2026-09-01: the API root returns HAL/JSON with dspaceName…
+- [TUdatalib OAI-PMH](https://apis.io/apis/technical-university-of-darmstadt/tudatalib-oai/) — OAI-PMH 2.0 metadata harvesting interface for TUdatalib. Verified live 2026-09-01: Identify returns repositoryName "TUdatalib System", protocolVersion 2.0,…
+- [TU Darmstadt Shibboleth Identity Provider (SAML 2.0 metadata)](https://apis.io/apis/technical-university-of-darmstadt/shibboleth-idp/) — The university's own SAML 2.0 identity provider, operated by the Hochschulrechenzentrum (HRZ). Verified live 2026-09-01 (HTTP 200, 15,371 bytes of XML):…
+- [DFN-AAI federation membership (eduGAIN)](https://apis.io/apis/technical-university-of-darmstadt/dfn-aai/) — TU Darmstadt's identity provider is published in DFN-AAI, the German research-and-education identity federation run by DFN, and is reachable through eduGAIN…
+- [DBRepo API (research database repository)](https://apis.io/apis/technical-university-of-darmstadt/dbrepo/) — A DBRepo deployment run by the Universitaets- und Landesbibliothek for publishing and querying research databases. Hosted on the institution's own…
+- [TUjournals REST API (Janeway tenancy)](https://apis.io/apis/technical-university-of-darmstadt/tujournals-janeway/) — TUjournals is TU Darmstadt's open-access journal platform, publisher of record "Universitaets- und Landesbibliothek Darmstadt". It runs a live, fully…
+- [DataCite membership (provider HLQC)](https://apis.io/apis/technical-university-of-darmstadt/datacite-membership/) — TU Darmstadt registers DOIs through DataCite. Verified live 2026-09-01 via api.datacite.org/providers/hlqc: provider HLQC, "Universitaets- und…
+- [ROR registration](https://apis.io/apis/technical-university-of-darmstadt/ror/) — TU Darmstadt is registered in the Research Organization Registry as https://ror.org/05n911h24, established 1877, domain tu-darmstadt.de, with GRID…
+- [tuprints OAI-PMH (EPrints)](https://apis.io/apis/technical-university-of-darmstadt/tuprints-oai/) — tuprints is the open-access publication repository of TU Darmstadt, on the institution's own host and registered with DataCite as client hlqc.jslnah. It…
+- [TUbiblio OAI-PMH (EPrints)](https://apis.io/apis/technical-university-of-darmstadt/tubiblio-oai/) — TUbiblio is the publication bibliography of TU Darmstadt, on the institution's own host (tubiblio18.ulb.tu-darmstadt.de, 130.83.152.163), running EPrints…
 
-Education, Higher Education, University, Research Data, Open Access, Library, OAI-PMH, DSpace, Germany
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **TUdatalib DSpace REST API** — REST API of the TUdatalib research-data repository (DSpace 8.1). Base: `https://tudatalib.ulb.tu-darmstadt.de/server/api`. Docs: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
-- **TUdatalib OAI-PMH** — OAI-PMH 2.0 metadata harvesting for TUdatalib. Base: `https://tudatalib.ulb.tu-darmstadt.de/server/oai/request`. Docs: https://tudatalib.ulb.tu-darmstadt.de/docs/en/faq/
-- **TUbiblio OAI-PMH (EPrints)** — OAI-PMH metadata for the TU Darmstadt publication bibliography. Base: `https://tubiblio.ulb.tu-darmstadt.de/cgi/oai2`. Docs: https://tubiblio.ulb.tu-darmstadt.de/
-- **tuprints OAI-PMH (EPrints)** — OAI-PMH metadata for the tuprints open-access repository. Base: `https://tuprints.ulb.tu-darmstadt.de/cgi/oai2`. Docs: https://tuprints.ulb.tu-darmstadt.de/
+#### JSON-LD (1)
 
-## Plans / Rate Limits / FinOps
+Linked-data contexts for the provider's vocabulary.
 
-- Plans: [plans/technical-university-of-darmstadt-plans-pricing.yml](plans/technical-university-of-darmstadt-plans-pricing.yml)
-- Rate Limits: [rate-limits/technical-university-of-darmstadt-rate-limits.yml](rate-limits/technical-university-of-darmstadt-rate-limits.yml)
-- FinOps: [finops/technical-university-of-darmstadt-finops.yml](finops/technical-university-of-darmstadt-finops.yml)
+- [Technical University Of Darmstadt Context](https://apis.io/jsonld/technical-university-of-darmstadt/technical-university-of-darmstadt-context/)
 
-## Timestamps
+#### Security (2)
 
-- Created: 2026-06-03
-- Modified: 2026-06-03
+Authentication, trust centre, and vulnerability disclosure.
 
-## Common Properties
+- [Technical University Of Darmstadt Authentication](https://apis.io/security/technical-university-of-darmstadt/technical-university-of-darmstadt-authentication/)
+- [Technical University Of Darmstadt Domain Security](https://apis.io/security/technical-university-of-darmstadt/technical-university-of-darmstadt-domain-security/)
 
-- Website: https://www.tu-darmstadt.de/index.en.jsp
-- GitHub: https://github.com/TU-Darmstadt
-- LinkedIn: https://www.linkedin.com/school/tu-darmstadt/
-- Authentication (SSO): https://www.hrz.tu-darmstadt.de/sso
+#### Plans and pricing (1)
 
-## Notes
+Published plans, tiers and prices.
 
-All entries reflect what was verifiable during review (2026-06-03). The TUdatalib REST API and OAI-PMH endpoints were confirmed live (HTTP 200, valid responses). The tuprints repository root resolved (200) but its OAI path returned 403 to a plain client (likely requires a standard harvester user-agent). The TUbiblio host applied bot/TLS filtering and could not be curl-verified directly, though it loads in a browser. The official-named GitHub org `TU-Darmstadt` exists but currently has no public repositories. No endpoints were fabricated.
+- [Technical University Of Darmstadt Plans Pricing](https://apis.io/plans/technical-university-of-darmstadt/technical-university-of-darmstadt-plans-pricing/)
 
-## Maintainers
+#### Rate limits (1)
 
-- Kin Lane — kin@apievangelist.com
+Published request limits.
+
+- [Technical University Of Darmstadt Rate Limits](https://apis.io/rate-limits/technical-university-of-darmstadt/technical-university-of-darmstadt-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Technical University Of Darmstadt Finops](https://apis.io/finops/technical-university-of-darmstadt/technical-university-of-darmstadt-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.tu-darmstadt.de/index.en.jsp)
+- [Support](https://www.tu-darmstadt.de/kontakt_1/index.en.jsp)
+- [Blog](https://www.tu-darmstadt.de/universitaet/aktuelles_meldungen/index.en.jsp)
+- [Terms of service](https://www.tu-darmstadt.de/impressum/index.en.jsp)
+- [Privacy policy](https://www.tu-darmstadt.de/datenschutzerklaerung)
+
+## API Evangelist rating
+
+**Kin Score 24.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 14.3 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 26.3 |
+
+**Agent readiness 3.1** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/technical-university-of-darmstadt/](https://apis.io/providers/technical-university-of-darmstadt/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Technical University of Darmstadt: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/technical-university-of-darmstadt/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
